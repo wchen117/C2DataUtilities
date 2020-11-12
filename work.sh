@@ -9,7 +9,7 @@
 #/pic/projects/goc/submission-manager/submission-manager-tmp/arunveeramany/TESTSUB9_1_1/C2S3N00014_output1/
 
 # C2DataUtilities test data
-#case_dir=./data/ieee14/scenario_1/
+case_dir=./data/ieee14/scenario_1/
 #case_dir=./data/ieee14/scenario_2/
 #case_dir=./data/ieee14/scenario_3/
 
@@ -74,7 +74,7 @@ case_dir=/people/holz501/gocomp/c2/data/UWMAD_GO2_AUS/
 strict_names=0
 refresh_data=1
 check_data=1
-scrub_data=0
+scrub_data=1
 check_scrubbed_data=0
 make_new_sol=0
 eval_sol=0
@@ -85,12 +85,12 @@ num_proc=1
 
 py_dir=./py/
 work_dir=./tmp/
-raw1="${work_dir}/case.raw"
-raw2="${work_dir}/case.scrubbed.raw"
-sup1="${work_dir}/case.json"
-sup2="${work_dir}/case.scrubbed.json"
-con1="${work_dir}/case.con"
-con2="${work_dir}/case.scrubbed.con"
+raw1="${work_dir}case.raw"
+raw2="${work_dir}case.scrubbed.raw"
+sup1="${work_dir}case.json"
+sup2="${work_dir}case.scrubbed.json"
+con1="${work_dir}case.con"
+con2="${work_dir}case.scrubbed.con"
 
 echo "case: ${case_dir}"
 
@@ -116,14 +116,14 @@ then
 	cp "${case_dir}case.con" "$con1"
     else
 	echo "find case: arbitrary names"
-	cp "$case_dir"/*.raw "$work_dir"
-	cp "$case_dir"/*.json "$work_dir"
-	cp "$case_dir"/*.con "$work_dir"
+	cp "$case_dir"*.raw "$work_dir"
+	cp "$case_dir"*.json "$work_dir"
+	cp "$case_dir"*.con "$work_dir"
         # remove the excess stuff
-	rm $work_dir/*-w.raw
-	rm $work_dir/*_clean.raw
-	rm $work_dir/*_clean.json
-	rm $work_dir/*_clean.con
+	rm $work_dir*-w.raw
+	rm $work_dir*_clean.raw
+	rm $work_dir*_clean.json
+	rm $work_dir*_clean.con
 	for i in $work_dir*.raw; do
 	    [ -f "$i" ] || break
 	    #echo "$i"
@@ -209,6 +209,17 @@ then
     reserved=reserved
     timelimit=300
     network=network
+    echo "==========================================="
+    echo "Arguments passed to MyPython1.py are:"
+    echo "con2: $con2"
+    echo "sup2: $sup2"
+    echo "raw2: $raw2"
+    echo "reserved: $reserved"
+    echo "timelimit: $timelimit"
+    echo "division: $division"
+    echo "network: $network"
+    echo "==========================================="
+    #echo $con2 $sup2 $raw2 $reserved $timelimit $division $network
     python MyPython1.py "$con2" "$sup2" "$raw2" $reserved $timelimit $division $network
     python MyPython2.py "$con2" "$sup2" "$raw2" $reserved $timelimit $division $network
 else
