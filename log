@@ -1,0 +1,2 @@
+python py/scrub_data.py tmp/case.raw tmp/case.json tmp/case.con tmp/case.scrub.raw tmp/case.scrub.json tmp/case.scrub.con
+
